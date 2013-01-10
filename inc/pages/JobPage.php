@@ -25,6 +25,10 @@ class JobPage extends Page {
 		$this->setRobots( "noindex,nofollow" );
 		$this->bodyScripts[] = swarmpath( "js/job.js" );
 
+		$this->bodyScripts[] = swarmpath( "js/load-image.min.js" );
+		$this->bodyScripts[] = swarmpath( "js/bootstrap-image-gallery.min.js" );
+		$this->styleSheets[] = swarmpath( "css/bootstrap-image-gallery.min.css" );
+
 		$error = $this->getAction()->getError();
 		$data = $this->getAction()->getData();
 		$html = '';
@@ -169,18 +173,17 @@ class JobPage extends Page {
 	 */
 	public static function getScreenshots( $jobName, $runs ){
 		$html = '';
-
 		$path = realpath(__DIR__.'/../../screenshots/'.$jobName.'/');
 
 		if( is_dir($path) && is_readable($path) ){
+			$html .= '<h3>Screenshots <small>(some images might not be 100% accurate)</small></h3>';
+			$html .= '<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">';
 			foreach( $runs as $run ){
-				$runDir = $path.$run['info']['name'];
+				$runDir = $path.'/'.$run['info']['name'];
 				if( is_dir($runDir) && is_readable($runDir) && $handle = opendir($runDir) ){
-					$html .= '<h3>'.$run['info']['name'].'</h3><ul>';
-
 					while( false !== ($entry = readdir($handle)) ){
 						if( $entry != "." && $entry != ".." ){
-							$html .= '<li><figure><img src="/screenshots/'.$jobName.'/'.$run['info']['name'].'/'.$entry.'"><figcaption>'.substr($entry, 0, -4).'</figcaption></li>';
+							$html .= '<a href="/screenshots/'.$jobName.'/'.$run['info']['name'].'/'.$entry.'" title="'.substr($entry, 0, -4).'" data-gallery="gallery">'.substr($entry, 0, -4).'</a>';
 						}
 					}
 
@@ -189,7 +192,26 @@ class JobPage extends Page {
 					closedir($handle);
 				}
 			}
+			$html .= '</div>';
 		}
+
+
+		$html .= '
+			<!-- modal-gallery is the modal dialog used for the image gallery -->
+			<div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">
+				<div class="modal-header">
+					<a class="close" data-dismiss="modal">&times;</a>
+					<h3 class="modal-title"></h3>
+				</div>
+				<div class="modal-body"><div class="modal-image"></div></div>
+				<div class="modal-footer">
+					<a class="btn btn-primary modal-next">Next <i class="icon-arrow-right icon-white"></i></a>
+					<a class="btn btn-info modal-prev"><i class="icon-arrow-left icon-white"></i> Previous</a>
+					<a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> Slideshow</a>
+					<a class="btn modal-download" target="_blank"><i class="icon-download"></i> Download</a>
+				</div>
+			</div>
+		';
 
 		return $html;
 	}

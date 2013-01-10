@@ -69,6 +69,8 @@ class JobPage extends Page {
 
 		$html .= $action_bar;
 
+		$html .= self::getScreenshots($data['jobInfo']['name'], $data['runs']);
+
 		return $html;
 	}
 
@@ -152,6 +154,39 @@ class JobPage extends Page {
 				} else {
 					// This run isn't schedules to be ran in this UA
 					$html .= '<td class="swarm-status swarm-status-notscheduled"></td>';
+				}
+			}
+		}
+
+		return $html;
+	}
+
+	/**
+	 * parse the screenshots folder for the jobName subfolder
+	 * display the available screenshots for the runs
+	 * @param String $jobName
+	 * @param Array $runs
+	 */
+	public static function getScreenshots( $jobName, $runs ){
+		$html = '';
+
+		$path = realpath(__DIR__.'/../../screenshots/'.$jobName.'/');
+
+		if( is_dir($path) && is_readable($path) ){
+			foreach( $runs as $run ){
+				$runDir = $path.$run['info']['name'];
+				if( is_dir($runDir) && is_readable($runDir) && $handle = opendir($runDir) ){
+					$html .= '<h3>'.$run['info']['name'].'</h3><ul>';
+
+					while( false !== ($entry = readdir($handle)) ){
+						if( $entry != "." && $entry != ".." ){
+							$html .= '<li><figure><img src="/screenshots/'.$jobName.'/'.$run['info']['name'].'/'.$entry.'"><figcaption>'.substr($entry, 0, -4).'</figcaption></li>';
+						}
+					}
+
+					$html .= '</ul>';
+
+					closedir($handle);
 				}
 			}
 		}

@@ -185,7 +185,8 @@ class JobPage extends Page {
 					while( false !== ($entry = readdir($handle)) ){
 						if( $entry != "." && $entry != ".." ){
 							$name = $run['info']['name'].' - '.substr($entry, 0, -4);
-							$html .= '<a href="/screenshots/'.$jobName.'/'.$run['info']['name'].'/'.$entry.'" title="'.$name.'" data-gallery="gallery">'.$name.'</a>';
+							$url = '/screenshots/'.$jobName.'/'.$run['info']['name'].'/'.$entry;
+							$html .= '<a href="'.$url.'" title="'.$name.'" data-gallery="gallery"><img src="'.$url.'" alt="'.$name.'"></a>';
 						}
 					}
 

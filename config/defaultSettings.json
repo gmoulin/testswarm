@@ -35,8 +35,8 @@
 	"userAgents": {},
 	"browserSets": {},
 	"debug": {
-		"showExceptionDetails": false,
-		"phpErrorReporting": false,
+		"showExceptionDetails": true,
+		"phpErrorReporting": true,
 		"dbLogQueries": false
 	}
 }

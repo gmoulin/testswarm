@@ -1,5 +1,5 @@
 @charset 'UTF-8';
-.gallery a{display:inline-block;width:200px;height:200px;padding:2px;margin:2px;border:1px solid #DDDDDD;border-radius:4px;}
+.gallery a{display:inline-block;width:200px;height:200px;padding:2px;margin:2px;border:1px solid #DDDDDD;border-radius:4px;float:left;}
 .gallery img{display:block;margin-left:auto;margin-right:auto;max-width:100%;max-height: 160px;}
 .modal-gallery{width:auto;max-height:none;outline:none;}
 .modal-gallery.fade.in{top:50%;}

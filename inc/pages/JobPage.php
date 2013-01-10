@@ -178,7 +178,7 @@ class JobPage extends Page {
 
 		if( is_dir($path) && is_readable($path) ){
 			$html .= '<h3>Screenshots <small>(some images might not be 100% accurate)</small></h3>';
-			$html .= '<div id="gallery" class="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">';
+			$html .= '<div id="gallery" class="row-fluid gallery" data-toggle="modal-gallery" data-target="#modal-gallery">';
 			foreach( $runs as $run ){
 				$runDir = $path.'/'.$run['info']['name'];
 				if( is_dir($runDir) && is_readable($runDir) && $handle = opendir($runDir) ){

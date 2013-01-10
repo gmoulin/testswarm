@@ -25,6 +25,7 @@ class JobPage extends Page {
 		$this->setRobots( "noindex,nofollow" );
 		$this->bodyScripts[] = swarmpath( "js/job.js" );
 
+		$this->bodyScripts[] = swarmpath( "js/bootstrap-modal.js" );
 		$this->bodyScripts[] = swarmpath( "js/load-image.min.js" );
 		$this->bodyScripts[] = swarmpath( "js/bootstrap-image-gallery.min.js" );
 		$this->styleSheets[] = swarmpath( "css/bootstrap-image-gallery.min.css" );

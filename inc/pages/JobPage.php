@@ -198,7 +198,6 @@ class JobPage extends Page {
 			$html .= '</div>';
 		}
 
-
 		$html .= '
 			<!-- modal-gallery is the modal dialog used for the image gallery -->
 			<div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">

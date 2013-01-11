@@ -19,8 +19,6 @@ if( !is_null($image) ){
 	if( $imgres != false ){
 		$db = $swarmContext->getDB();
 
-		echo '<pre>'; print_r($runID); echo '</pre>';
-
 		$row = $db->getRow(str_queryf('
 			SELECT
 				r.name as run_name, j.name as job_name
@@ -30,8 +28,6 @@ if( !is_null($image) ){
 			',
 			$runID
 		));
-
-		echo '<pre>'; var_dump($row); echo '</pre>';
 
 		if( $row != false ){
 			$root = dirname(__FILE__).'/screenshots/';

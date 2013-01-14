@@ -65,8 +65,8 @@ class HomePage extends Page {
 				$html .= '<div class="alert alert-info">'
 					. '<h4 class="alert-heading">Your browser is not needed by this swarm.</h4>'
 					. '<p>Please join with one the below browsers.</p></div>'
-					. '<p>If you feel that this may be an error, please report it to the TestSwarm '
-					. ' <a href="https://github.com/jquery/testswarm/issues">Issue Tracker</a>,'
+					. '<p>If you feel that this may be an error, please report it to '
+					. ' <a href="mailto:cedric.guittard@b-i.com">Cédric Guittard</a>,'
 					. ' including the following 2 codes:'
 					. '<br><strong><a href="https://github.com/tobie/ua-parser">ua-parser</a>:</strong> <code>'
 					. htmlspecialchars( print_r(  $uaData, true ) )

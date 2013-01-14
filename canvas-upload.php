@@ -15,7 +15,7 @@ $runID = $request->getInt( 'run_id', 0 );
 $response = array('success' => 0, 'filename' => '');
 
 if( !is_null($image) ){
-	$imgres = imagecreatefromstring( base64_decode(str_replace('data:image/jpg;base64,', '', $image)) );
+	$imgres = imagecreatefromstring( base64_decode(str_replace('data:image/png;base64,', '', $image)) );
 	if( $imgres != false ){
 		$db = $swarmContext->getDB();
 

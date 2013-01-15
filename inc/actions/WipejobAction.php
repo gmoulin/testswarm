@@ -56,11 +56,16 @@ class WipejobAction extends Action {
 		}
 
 		$runRows = $db->getRows(str_queryf(
-			'SELECT id
+			'SELECT id, name
 			FROM runs
 			WHERE job_id = %u;',
 			$jobID
 		));
+
+		//get jobInfo
+		$jobInfo = JobAction::getJobInfoFromId( $db, $jobID );
+		$jobName = $jobInfo['name'];
+		$path = realpath(__DIR__.'/../../screenshots/'.$jobName.'/');
 
 		if ( $runRows ) {
 			foreach ( $runRows as $runRow ) {
@@ -84,8 +89,25 @@ class WipejobAction extends Action {
 						$runRow->id
 					));
 				}
+
+				//cleaning screenshots
+				if( is_dir($path) && is_readable($path) ){
+					$runDir = $path.'/'.$runRow->name;
+					if( is_dir($runDir) && is_readable($runDir) && $handle = opendir($runDir) ){
+						while( false !== ($entry = readdir($handle)) ){
+							if( $entry != "." && $entry != ".." ){
+								unlink($runDir.'/'.$entry);
+							}
+						}
+
+						unlink($runDir);
+					}
+					closedir($handle);
+				}
 			}
 		}
+
+		unlink($path);
 
 		// This should be outside the if for $runRows, because jobs
 		// can sometimes be created without any runs (by accidently).
